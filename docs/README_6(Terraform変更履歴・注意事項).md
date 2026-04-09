@@ -2,6 +2,7 @@
 
 本ドキュメントでは、Terraform適用時の注意点および構築過程での変更内容を整理する。
 
+---
 
 ## 変更履歴（抜粋）
 
@@ -20,7 +21,7 @@
 - CloudWatch Alarmsの統計値を Average から Minimum に変更し、より感度の高い監視設定に調整
 - AWS CodePipelineのBuildステージにてエラー発生。IAMロールを追加し、ECSタスク定義のデプロイを完了
 - CodeBuild内でのアーティファクト生成およびデプロイ設定を修正し、CodePipelineを完成
-
+---
 
 ## terraform plan確認内容
 terraform apply 適用前に、以下の観点で差分を確認する。
@@ -30,10 +31,8 @@ terraform apply 適用前に、以下の観点で差分を確認する。
 - 変更対象が意図したリソースのみであるか
 - ECSサービスの設定変更が意図通りであるか
 - ECSサービス等の変更時、意図せずALBやRDSに対してdestroy（削除）が発生していないかを確認
-- CodePipeline経由でECSタスク定義が更新された後にTerraformを実行すると、
-　Terraform側のコードにある古いリビジョンへ戻す差分が発生する場合がある。
-　　→ 対応：lifecycle { ignore_changes = [task_definition] } を設定
-
+- CodePipeline経由でECSタスク定義が更新された後にTerraformを実行すると、Terraform側のコードにある古いリビジョンへ戻す差分が発生する場合がある。　→ 対応：lifecycle { ignore_changes = [task_definition] } を設定
+---
 
 ## apply失敗時の対応
 
